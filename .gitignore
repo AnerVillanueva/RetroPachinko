@@ -1,4 +1,11 @@
 node_modules/
+dist/
 .DS_Store
 .vscode/
 .env
+*.local
+
+# Capacitor
+android/app/build
+android/app/src/main/assets/public
+android/app/src/main/assets/capacitor.config.json

@@ -1,0 +1,8 @@
+{
+  "appId": "com.anervillanueva.retropachinko",
+  "appName": "RetroPachinko",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">RetroPachinko</string>
+    <string name="title_activity_main">RetroPachinko</string>
+    <string name="package_name">com.anervillanueva.retropachinko</string>
+    <string name="custom_url_scheme">com.anervillanueva.retropachinko</string>
+</resources>
