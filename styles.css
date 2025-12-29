@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400&display=swap');
+
+:root {
+    --neon-purple: #bc13fe;
+    --neon-blue: #04d9ff;
+    --neon-pink: #ff0055;
+    --neon-cyan: #0ff;
+    --dark-bg: #050510;
+    --panel-bg: #111122;
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.app-layout {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+    border-left: 1px solid rgba(131, 56, 236, 0.3);
+    border-right: 1px solid rgba(131, 56, 236, 0.3);
+    background: radial-gradient(circle at 50% 30%, #1a1a3a 0%, #0a0a1f 100%);
+}
+
+.main-game-area {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    padding-bottom: 0px;
+}
+
+#gameCanvas {
+    display: block;
+    max-width: 100%;
+    height: 100%;
+}
+
+/* --- Multiplicadores Alargados --- */
+.multipliers-strip {
+    height: 70px;
+    /* ALARGADOS */
+    width: 100%;
+    display: flex;
+    padding: 0 5px;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    margin-top: -30px;
+    /* Solape agresivo */
+    position: relative;
+}
+
+.multiplier {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+    margin: 0 1px;
+    border-radius: 2px;
+    color: white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.multiplier.jackpot {
+    background: linear-gradient(180deg, #ff0055, #ffaa00);
+    box-shadow: 0 0 10px #ff0055;
+    animation: pulse 1s infinite alternate;
+}
+
+.multiplier.high {
+    background: linear-gradient(180deg, #bc13fe, #04d9ff);
+}
+
+.multiplier.lose {
+    background: rgba(255, 255, 255, 0.05);
+    color: #aaa;
+}
+
+@keyframes pulse {
+    to {
+        box-shadow: 0 0 15px #ff00aa;
+    }
+}
+
+/* --- Panel Inferior Estructurado --- */
+.bottom-panel {
+    background: linear-gradient(0deg, #050510 0%, #151525 100%);
+    padding: 15px 10px 10px 10px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top: 2px solid var(--neon-purple);
+    box-shadow: 0 -5px 25px rgba(131, 56, 236, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 30;
+    position: relative;
+    margin-top: -10px;
+}
+
+/* Fila Principal (3 columnas) */
+.controls-main-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+/* Bloques laterales */
+.panel-block {
+    width: 32%;
+    background: rgba(30, 30, 50, 0.5);
+    border: 1px solid rgba(131, 56, 236, 0.3);
+    border-radius: 8px;
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.block-label {
+    font-size: 7px;
+    color: var(--neon-cyan);
+    margin-bottom: 2px;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+/* Grid de Filas (Izquierda) */
+.lines-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3px;
+}
+
+.line-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-family: inherit;
+    font-size: 8px;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.line-btn.active {
+    background: var(--neon-purple);
+    border-color: var(--neon-purple);
+    box-shadow: 0 0 5px var(--neon-purple);
+}
+
+/* Modos (Derecha) */
+.mode-toggles {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.mode-btn {
+    padding: 4px;
+    font-size: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--neon-blue);
+    color: #aaa;
+    cursor: pointer;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.mode-btn.active {
+    background: var(--neon-blue);
+    color: black;
+    font-weight: bold;
+}
+
+.auto-select {
+    background: #0a0a1f;
+    color: var(--neon-blue);
+    border: 1px solid var(--neon-blue);
+    font-size: 8px;
+    border-radius: 3px;
+    width: 100%;
+    outline: none;
+    margin-top: 2px;
+}
+
+.mini-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.icon-btn {
+    background: none;
+    border: 1px solid #555;
+    color: #ccc;
+    border-radius: 3px;
+    font-size: 10px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+}
+
+.icon-btn:active {
+    background: #333;
+}
+
+/* Centro Play */
+.center-block {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5px;
+}
+
+.big-play-btn {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffaa00, #ff0055);
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px #ff0055, inset 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    cursor: pointer;
+    margin-top: -15px;
+    /* Flotar arriba */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.big-play-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px #ff0055;
+}
+
+.play-icon {
+    font-size: 24px;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+}
+
+.play-text {
+    font-size: 10px;
+    font-weight: 900;
+    margin-top: 2px;
+}
+
+/* Barra Apuestas */
+.betting-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.bet-small-btn {
+    background: #222;
+    color: #888;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-size: 8px;
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.bet-adjust-btn {
+    width: 28px;
+    height: 28px;
+    background: #222;
+    border: 1px solid #555;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.bet-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bet-label {
+    font-size: 7px;
+    color: #666;
+}
+
+.bet-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+}
+
+/* Footer Balance */
+.footer-balance {
+    text-align: center;
+    margin-top: 2px;
+}
+
+.balance-label {
+    font-size: 8px;
+    color: #888;
+    letter-spacing: 1px;
+    margin-right: 5px;
+}
+
+.balance-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f0;
+    text-shadow: 0 0 5px #0f0;
+}
+
+.notification {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* La clase .floating-prize se controla por JS para posición, pero aquí definimos estilo base */
+.floating-prize {
+    position: fixed;
+    font-size: 18px;
+    font-weight: 900;
+    z-index: 200;
+    pointer-events: none;
+    text-shadow: 0 2px 0 #000;
+    animation: floatSimple 1s forwards;
+}
+
+.floating-prize.win {
+    color: #0fff50;
+}
+
+.floating-prize.lose {
+    color: #ff4444;
+    font-size: 14px;
+}
+
+@keyframes floatSimple {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+}
+
+.stop-auto-float {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: #ff0055;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    z-index: 90;
+}
+
+.hidden {
+    display: none !important;
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Pachinko Retrowave - Juego de apuestas estilo japonés con estética retrowave">
+  <title>Retro Pachinko</title>
+  <link rel="stylesheet" href="styles.css?v=23">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+</head>
+
+<body>
+  <div class="app-layout">
+
+    <!-- Área Superior: Juego -->
+    <div class="main-game-area">
+      <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- Multiplicadores (Más altos) -->
+    <div class="multipliers-strip" id="multipliersContainer"></div>
+
+    <!-- Panel Inferior Estructurado -->
+    <div class="bottom-panel">
+
+      <!-- Fila Principal: Risk | Play | Mode -->
+      <div class="controls-main-row">
+
+        <!-- Izquierda: Filas (Risk) -->
+        <div class="panel-block left-block">
+          <div class="block-label">RIESGO</div>
+          <div class="lines-grid" id="linesList">
+            <button class="line-btn" data-rows="10">10</button>
+            <button class="line-btn" data-rows="11">11</button>
+            <button class="line-btn" data-rows="12">12</button>
+            <button class="line-btn" data-rows="13">13</button>
+            <button class="line-btn" data-rows="14">14</button>
+            <button class="line-btn" data-rows="15">15</button>
+            <button class="line-btn active" data-rows="16">16</button>
+          </div>
+        </div>
+
+        <!-- Centro: Botón Gigante -->
+        <div class="center-block">
+          <button id="launchBtn" class="big-play-btn">
+            <span class="play-icon">▶</span>
+            <span class="play-text">PLAY</span>
+          </button>
+        </div>
+
+        <!-- Derecha: Modos -->
+        <div class="panel-block right-block">
+          <div class="block-label">MODO</div>
+          <div class="mode-toggles">
+            <button id="modeManual" class="mode-btn active">MANUAL</button>
+            <button id="modeAuto" class="mode-btn">AUTO</button>
+          </div>
+          <select id="autoCountSelect" class="auto-select hidden">
+            <option value="5">5 bolas</option>
+            <option value="10">10 bolas</option>
+            <option value="50">50 bolas</option>
+            <option value="0">Infinito</option>
+          </select>
+          <div class="mini-actions">
+            <button id="soundToggle" class="icon-btn">🔊</button>
+            <button id="resetBalance" class="icon-btn">⟳</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Barra de Apuestas -->
+      <div class="betting-bar">
+        <button id="minBetBtn" class="bet-small-btn">MIN</button>
+        <button class="bet-adjust-btn" id="decreaseBet">−</button>
+        <div class="bet-display">
+          <span class="bet-label">APUESTAS</span>
+          <span class="bet-value" id="betAmount">10€</span>
+        </div>
+        <button class="bet-adjust-btn" id="increaseBet">+</button>
+        <button id="maxBetBtn" class="bet-small-btn">MAX</button>
+      </div>
+
+      <!-- Footer: Saldo -->
+      <div class="footer-balance">
+        <span class="balance-label">SALDO DISPONIBLE</span>
+        <span class="balance-value" id="balance">1000€</span>
+      </div>
+
+    </div>
+
+    <!-- Notificaciones y Botón Parar Auto -->
+    <div class="notification" id="notification"></div>
+    <button id="stopAutoplay" class="stop-auto-float hidden">PARAR AUTO</button>
+  </div>
+
+  <script src="game.js?v=23"></script>
+</body>
+
+</html>
